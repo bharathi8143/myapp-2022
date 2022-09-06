@@ -1,7 +1,7 @@
 @Library("bharathilibs") _
 pipeline{
     agent any
-    stages
+    stages {
     stage("maven build"){
             steps{
                  sh 'mvn clean package -DskipTests=true'  
@@ -13,4 +13,5 @@ pipeline{
                 }
             }
         }
+}
 }
