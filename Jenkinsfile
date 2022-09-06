@@ -1,16 +1,22 @@
-@Library("harilibs") _
+@Library("bharathilibs") _
 pipeline{
     agent any
     stages{
-        stage("Maven Build"){
+        stage("git checkout"){
             steps{
-                sh 'mvn clean package -DskipTests=true'
+                git credentialsId: 'github-creds', url: 'https://github.com/bharathi8143/myapp-2022.git'   
             }
         }
-        stage(" Dev Tomcat Deploy"){
+        stage("maven build"){
             steps{
-                tomcatDeploy("172.31.1.213","ec2-user","tomcat-dev")
+                 sh 'mvn clean package -DskipTests=true'  
             }
         }
-    }
+         stage("DevTomcat Deploy"){
+            steps{
+                tomcatdeploy("172.31.1.166","ec2-user","tomcat-dev")
+
+                }
+            }
+        }
 }
